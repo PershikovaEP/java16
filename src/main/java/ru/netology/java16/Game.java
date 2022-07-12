@@ -6,19 +6,12 @@ import java.util.List;
 
 public class Game {
 
-    //Вам нужно хранить всех зарегистрированных игроков в поле класса Game в виде списка.
-    HashMap<String, Player> players = new HashMap<>();
+    //список зарегистрированных игроков
+    protected HashMap<String, Player> players = new HashMap<>();
 
 
-    //    register(Player player) - метод регистрации игрока; если игрок не зарегистрирован,
-//    то он не сможет играть в турнире.
-    public boolean register(String playerName) {   //если имя игрока находится в списке, то он зарегистрирован
-        for (String key : players.keySet()) {
-            if (playerName == key) {
-                return true;
-            }
-        }
-        return false;
+    public void register(String name, Player player) {   //регистрируем игрока, добавляя в список зарегистрированных
+        players.put(name, player);
     }
 
 //    round(String playerName1, String playerName2) - метод соревнования между двумя игроками.
@@ -27,14 +20,15 @@ public class Game {
 
 
         public int round(String playerName1, String playerName2){
-// исключение, если игроки не зарегистрированы
-            if (register(playerName1) == false) {
+
+//        исключение, если игроки не зарегистрированы
+            if (!players.containsKey(playerName1)) {
                 throw new NotRegisteredException(
                         "Player with name: " + playerName1 + " not registered"
                 );
-            } else if (register(playerName2) == false) {
+            } else if (!players.containsKey(playerName2)) {
                 throw new NotRegisteredException(
-                        "Player with name: " + playerName1 + " not registered"
+                        "Player with name: " + playerName2 + " not registered"
                 );
             }
 
