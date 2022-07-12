@@ -24,30 +24,13 @@ public class GameTest {
 
     @BeforeEach
     public void setup() {
-        game.players.add(player1);
-        game.players.add(player2);
-        game.players.add(player3);
-        game.players.add(player4);
-        game.players.add(player7);
+        game.register(player1);
+        game.register(player2);
+        game.register(player3);
+        game.register(player4);
+        game.register(player7);
     }
 
-    @Test
-    public void shouldRegistered() {
-
-        boolean expected = true;
-        boolean actual = game.register(player1);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNotRegistered() {
-
-        boolean expected = false;
-        boolean actual = game.register(player6);
-
-        assertEquals(expected, actual);
-    }
 
     @Test
     public void shouldExceptionWhenPlayer1NotRegistered() {

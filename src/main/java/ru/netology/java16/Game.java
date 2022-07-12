@@ -5,37 +5,37 @@ import java.util.List;
 
 public class Game {
 
-    //Вам нужно хранить всех зарегистрированных игроков в поле класса Game в виде списка.
-    List<Player> players = new ArrayList<>();
+    //список зарегистрированных игроков
+    protected List<Player> players = new ArrayList<>();
 
 
-    //    register(Player player) - метод регистрации игрока; если игрок не зарегистрирован,
-//    то он не сможет играть в турнире.
-    public boolean register(Player player) {   //если игрок находится в списке, то он зарегистрирован???
-        return players.contains(player);
-
-    }
+     public void register(Player player) {   //регистрируем игрока, добавляя в список зарегистрированных
+        players.add(player);
+     }
 
 //    round(String playerName1, String playerName2) - метод соревнования между двумя игроками.
 //   игроки передаются методу через имя - полную информацию об игроке нужно будет найти в коллекции
 //   зарегистрированных игроков.  Выигрывает тот игрок, у которого больше strength (сила);
 
-
     public int round(String playerName1, String playerName2) {
-// исключение, если игроки не зарегистрированы
-        if (register(findByName(playerName1)) == false) {
+
+            Player player1 = findByName(playerName1);
+            Player player2 = findByName(playerName2);
+
+//        исключение, если игроки не зарегистрированы
+        if (!players.contains(player1)) {
             throw new NotRegisteredException(
                     "Player with name: " + playerName1 + " not registered"
             );
-        } else if (register(findByName(playerName2)) == false) {
+        } else if (!players.contains(player2)) {
             throw new NotRegisteredException(
-                    "Player with name: " + playerName1 + " not registered"
+                    "Player with name: " + playerName2 + " not registered"
             );
         }
 
-        if (findByName(playerName1).getStrength() == findByName(playerName2).getStrength()) {
+        if (player1.getStrength() == player2.getStrength()) {
             return 0;
-        } else if (findByName(playerName1).getStrength() > findByName(playerName2).getStrength()) {
+        } else if (player1.getStrength() > player2.getStrength()) {
             return 1;
         } else {
             return 2;
@@ -43,13 +43,12 @@ public class Game {
     }
 
     public Player findByName(String name) {
-        for (Player player : players) {
-            if (player.getName() == name) {
-                return player;  //если совпадает имя, то выводим игрока, иначе результат нулл
+        for (Player p : players) {
+            if (p.getName() == name) {
+                return p;  //если совпадает имя, то выводим игрока, иначе результат нулл
             }
         }
         return null;
     }
-
 
 }
